@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Биохимия Анализы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        canvas {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        a {
+            text-decoration: none;
+            color: #2196F3;
+            font-size: 1em;
+            display: block;
+            margin-top: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Биохимия Анализы</h1>
+        <p>Краткая информация о биохимических анализах</p>
+    </header>
+    <div class="container">
+        <div>
+            <canvas id="canvasLDH"></canvas>
+            <a href="LDG.html">ЛДГ</a>
+        </div>
+        <div>
+            <canvas id="canvasBilirubin"></canvas>
+            <a href="bilirub.html">Билирубин</a>
+        </div>
+        <div>
+            <canvas id="canvasAlkalinePhosphatase"></canvas>
+            <a href="alkaline_ph.html">Щелочная фосфатаза</a>
+        </div>
+        <div>
+            <canvas id="canvasCholesterol"></canvas>
+            <a href="holesterol.html">Холестерин</a>
+        </div>
+        <div>
+            <canvas id="canvasALT"></canvas>
+            <a href="ALTf.html">АЛТ</a>
+        </div>
+        <div>
+            <canvas id="canvasAST"></canvas>
+            <a href="ACT.html">АСТ</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Биохимия Анализы. Все права защищены.</p>
+    </footer>
+    <script>
+        // Function to draw an image on canvas
+        function drawImageOnCanvas(canvasId, imageUrl) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+
+            img.src = imageUrl;
+        }
+
+        // Draw images for each enzyme
+        drawImageOnCanvas('canvasLDH', 'ldh.jpg');
+        drawImageOnCanvas('canvasBilirubin', 'bilirubin.jpg');
+        drawImageOnCanvas('canvasAlkalinePhosphatase', 'alkaline.jpg');
+        drawImageOnCanvas('canvasCholesterol', 'cholesterol.jpg');
+        drawImageOnCanvas('canvasALT', 'alt.jpg');
+        drawImageOnCanvas('canvasAST', 'ast.jpg');
+    </script>
+</body>
+</html>
