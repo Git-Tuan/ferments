@@ -3,89 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Методы исследования крови</title>
+    <title>Лаборатория анализа крови</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #112288;
-            --secondary-color: #f1f1f1;
-            --border-color: #ccc;
-            --active-color: white;
+            --lab-blue: #112288;
+            --test-tube-green: #4CAF50;
+            --flask-yellow: #FFC107;
+            --beaker-orange: #FF9800;
+            --petri-pink: #E91E63;
+            --lab-coat-white: #f8f9fa;
+            --counter-gray: #607D8B;
         }
         
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 15px;
-            background: #fafafa;
+            padding: 0;
+            background-color: var(--lab-coat-white);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 175, 80, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 152, 0, 0.05) 0%, transparent 20%);
             min-height: 100vh;
         }
         
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Chemistry-themed header */
+        .header {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
         }
         
         h1 {
-            text-align: center;
-            margin: 20px 0;
-            color: var(--primary-color);
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            line-height: 1.3;
-            padding: 0 10px;
+            color: var(--lab-blue);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 0;
+            padding: 20px 0;
+            position: relative;
+            display: inline-block;
         }
         
+        h1:before, h1:after {
+            content: "⚗️";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        h1:before {
+            left: -40px;
+        }
+        
+        h1:after {
+            right: -40px;
+        }
+        
+        /* Lab equipment decoration */
+        .lab-equipment {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .flask {
+            top: 10%;
+            right: 5%;
+            font-size: 8rem;
+            color: var(--flask-yellow);
+        }
+        
+        .microscope {
+            bottom: 15%;
+            left: 5%;
+            font-size: 7rem;
+            color: var(--counter-gray);
+        }
+        
+        /* Enhanced tabs */
         .tabs {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            width: 100%;
+            gap: 10px;
+            margin-bottom: 30px;
         }
         
         .tab {
             flex: 1 1 auto;
             text-align: center;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-bottom: none;
-            background: var(--secondary-color);
-            min-width: 150px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 8px;
+            min-width: 180px;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .tab:hover {
-            background: #e0e0e0;
-        }
-        
-        .tab.active {
-            background: var(--active-color);
-            font-weight: bold;
-            border-bottom: 1px solid var(--active-color);
-            margin-bottom: -1px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .content-container {
-            width: 100%;
-            border: 1px solid var(--border-color);
-            border-radius: 0 0 5px 5px;
-            background: var(--active-color);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            position: relative;
             overflow: hidden;
         }
         
+        .tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tab.active {
+            border-color: var(--lab-blue);
+            background-color: rgba(17, 34, 136, 0.05);
+            font-weight: bold;
+        }
+        
+        .tab i {
+            margin-right: 10px;
+            color: var(--lab-blue);
+        }
+        
+        /* Content area with lab notebook appearance */
+        .content-container {
+            width: 100%;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+        
         .content {
-            padding: 20px;
+            padding: 25px;
             min-height: 70vh;
             box-sizing: border-box;
+            background-image: linear-gradient(to bottom, white 0%, white 98%, #f1f1f1 100%);
+            background-size: 100% 30px;
         }
         
         iframe {
@@ -93,51 +153,142 @@
             height: 100%;
             min-height: 70vh;
             border: none;
+            background: white;
         }
         
+        /* Chemistry stickers */
+        .sticker {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.8;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .sticker-1 {
+            top: 10%;
+            left: 3%;
+            color: var(--petri-pink);
+            animation-delay: 0s;
+        }
+        
+        .sticker-2 {
+            bottom: 15%;
+            right: 5%;
+            color: var(--test-tube-green);
+            animation-delay: 1s;
+        }
+        
+        .sticker-3 {
+            top: 30%;
+            right: 8%;
+            color: var(--beaker-orange);
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
+            h1:before, h1:after {
+                display: none;
+            }
+            
             .tab {
-                min-width: 120px;
-                padding: 10px 12px;
-                font-size: 0.9rem;
+                min-width: 140px;
+                padding: 12px 15px;
             }
             
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .content {
-                padding: 15px;
+            .lab-equipment {
+                display: none;
             }
         }
         
         @media (max-width: 480px) {
-            .tabs {
-                gap: 5px;
-            }
-            
             .tab {
-                min-width: 100px;
-                padding: 8px 10px;
-                font-size: 0.8rem;
+                min-width: 100%;
             }
             
-            h1 {
+            .sticker {
                 font-size: 1.5rem;
             }
         }
     </style>
+<style>
+    @keyframes bubble-float {
+        0% { transform: translateY(0) scale(0.8); opacity: 0; }
+        50% { opacity: 0.6; }
+        100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+    .bubble {
+        position: fixed;
+        background: rgba(74, 175, 80, 0.3);
+        border-radius: 50%;
+        animation: bubble-float 8s linear infinite;
+        z-index: -1;
+    }
+</style>
+<script>
+    // Create bubbles
+    document.addEventListener('DOMContentLoaded', () => {
+        for (let i = 0; i < 15; i++) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.width = `${Math.random() * 20 + 5}px`;
+            bubble.style.height = bubble.style.width;
+            bubble.style.animationDelay = `${Math.random() * 5}s`;
+            document.body.appendChild(bubble);
+        }
+    });
+</script>
 </head>
 <body>
     <div class="container">
-        <h1>Методы исследования крови при синдромах цитолиза, желтухи, холестаза</h1>
-        
-        <div class="tabs">
-            <div class="tab active" onclick="showTab(0)">Абсорбционная фотометрия</div>
-            <div class="tab" onclick="showTab(1)">Маркеры. Диагностическое значение.</div>
-            <div class="tab" onclick="showTab(2)">Методы исследования</div>
+
+        <div class="lab-equipment flask">
+            <i class="fas fa-flask"></i>
+        </div>
+        <div class="lab-equipment microscope">
+            <i class="fas fa-microscope"></i>
         </div>
         
+
+        <div class="sticker sticker-1">
+            <i class="fas fa-atom"></i>
+        </div>
+        <div class="sticker sticker-2">
+            <i class="fas fa-pills"></i>
+        </div>
+        <div class="sticker sticker-3">
+            <i class="fas fa-vial"></i>
+        </div>
+        
+
+        <div class="header">
+            <h1>Лаборатория анализа крови</h1>
+            <p style="color: var(--counter-gray); margin-top: 10px;">
+                Исследование синдромов цитолиза, желтухи и холестаза
+            </p>
+        </div>
+        
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab(0)">
+                <i class="fas fa-vial"></i> Абсорбционная фотометрия
+            </div>
+            <div class="tab" onclick="showTab(1)">
+                <i class="fas fa-search"></i> Маркеры
+            </div>
+            <div class="tab" onclick="showTab(2)">
+                <i class="fas fa-clipboard-list"></i> Методы
+            </div>
+        </div>
+        
+        <!-- Content -->
         <div class="content-container">
             <div class="content" id="tab-content">
                 <iframe src='pht.html'></iframe>
@@ -157,19 +308,8 @@
             
             // Update active tab
             document.querySelectorAll('.tab').forEach((tab, i) => {
-                if (i === index) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
+                tab.classList.toggle('active', i === index);
             });
-            
-            // Scroll to content on mobile
-            if (window.innerWidth <= 768) {
-                document.querySelector('.content-container').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
         }
     </script>
 </body>
